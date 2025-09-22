@@ -7,9 +7,9 @@ $tipo = $_GET['tipo'];
 
 if ($tipo == "ver_categorias") {
     $respuesta = array('status' => false, 'msg' => 'fallo el controlador');
-    $usuarios = $objCategoria->verCategorias();
-    if (count($usuarios)) {
-        $respuesta = array('status' => true, 'msg' => '', 'data' => $usuarios);
+    $categorias = $objCategoria->verCategorias();
+    if (count($categorias)) {
+        $respuesta = array('status' => true, 'msg' => '', 'data' => $categorias);
     }
     echo json_encode($respuesta);
 }
