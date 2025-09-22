@@ -3,6 +3,7 @@
     <div class="container-fluid">
         <div class="card">
             <h5 class="card-header">Registro de Usuario</h5>
+            
             <form id="frm_user" action="" method="">
                 <div class="card-body">
                     <div class="mb-3 row">

@@ -1,5 +1,7 @@
 <div class="container">
     <h4 class="mt-3 mb-3">Lista de Usuarios</h4>
+    <a href="<?= BASE_URL ?>new-user" class="btn btn-primary">Nuevo +</a>
+    <br><br>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>

@@ -8,6 +8,12 @@
     <script>
         const base_url = '<?php echo BASE_URL; ?>';
     </script>
+    <?php
+        if (isset($_GET["views"])) {
+            $ruta = explode("/", $_GET["views"]);
+            //echo $ruta[1];
+        }
+        ?>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -25,10 +31,10 @@
                         <a class="nav-link" href="<?= BASE_URL ?>users">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Products</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>products">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Categories</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>category">Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Clients</a>
