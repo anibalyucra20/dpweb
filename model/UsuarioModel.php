@@ -34,12 +34,22 @@ class UsuarioModel
     public function verUsuarios()
     {
         $arr_usuarios = array();
-        $consulta = "SELECT * FROM persona";
+        $consulta = "SELECT * FROM persona WHERE rol<>'Proveedor' AND rol<>'Cliente'";
         $sql = $this->conexion->query($consulta);
         while ($objeto = $sql->fetch_object()) {
             array_push($arr_usuarios, $objeto);
         }
         return $arr_usuarios;
+    }
+    public function verProveedores()
+    {
+        $arr_categorias = array();
+        $consulta = "SELECT * FROM persona WHERE rol='Proveedor'";
+        $sql = $this->conexion->query($consulta);
+        while ($objeto = $sql->fetch_object()) {
+            array_push($arr_categorias, $objeto);
+        }
+        return $arr_categorias;
     }
     public function ver($id)
     {
@@ -56,5 +66,15 @@ class UsuarioModel
         $consulta = "DELETE FROM persona WHERE id='$id'";
         $sql = $this->conexion->query($consulta);
         return $sql;
+    }
+    public function verClientes()
+    {
+        $arr_usuarios = array();
+        $consulta = "SELECT * FROM persona WHERE rol='Cliente'";
+        $sql = $this->conexion->query($consulta);
+        while ($objeto = $sql->fetch_object()) {
+            array_push($arr_usuarios, $objeto);
+        }
+        return $arr_usuarios;
     }
 }

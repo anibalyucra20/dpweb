@@ -70,6 +70,14 @@ if ($tipo == "ver_usuarios") {
     }
     echo json_encode($respuesta);
 }
+if ($tipo == "listar_proveedores") {
+    $respuesta = array('status' => false, 'msg' => 'fallo el controlador');
+    $usuarios = $objPersona->verProveedores();
+    if (count($usuarios)) {
+        $respuesta = array('status' => true, 'msg' => '', 'data' => $usuarios);
+    }
+    echo json_encode($respuesta);
+}
 if ($tipo == "ver") {
     //print_r($_POST);
     $respuesta = array('status' => false, 'msg' => '');
@@ -110,9 +118,9 @@ if ($tipo == "actualizar") {
             // actualizar
             $actualizar = $objPersona->actualizar($id_persona, $nro_identidad, $razon_social, $telefono, $correo, $departamento, $provincia, $distrito, $cod_postal, $direccion, $rol);
             if ($actualizar) {
-                $arrResponse = array('status' => true, 'msg'=>"Actualizado correctamente");
-            }else {
-                $arrResponse = array('status' => false, 'msg'=>$actualizar);
+                $arrResponse = array('status' => true, 'msg' => "Actualizado correctamente");
+            } else {
+                $arrResponse = array('status' => false, 'msg' => $actualizar);
             }
             echo json_encode($arrResponse);
             exit;
@@ -127,8 +135,16 @@ if ($tipo == "eliminar") {
     $resultado = $objPersona->eliminar($id_persona);
     if ($resultado) {
         $respuesta = array('status' => true, 'msg' => 'Eliminado Correctamente');
-    }else {
+    } else {
         $respuesta = array('status' => false, 'msg' => $resultado);
+    }
+    echo json_encode($respuesta);
+}
+if ($tipo == "ver_clients") {
+    $respuesta = array('status' => false, 'msg' => 'fallo el controlador');
+    $usuarios = $objPersona->verClientes();
+    if (count($usuarios)) {
+        $respuesta = array('status' => true, 'msg' => '', 'data' => $usuarios);
     }
     echo json_encode($respuesta);
 }
