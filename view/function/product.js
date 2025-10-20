@@ -46,8 +46,8 @@ function validar_form(tipo) {
     let stock = document.getElementById("stock").value;
     let id_categoria = document.getElementById("id_categoria").value;
     let fecha_vencimiento = document.getElementById("fecha_vencimiento").value;
-    let imagen = document.getElementById("imagen").value;
-    if (codigo == "" || nombre == "" || detalle == "" || precio == "" || stock == "" || id_categoria == "" || fecha_vencimiento == "" || imagen == "") {
+    //let imagen = document.getElementById("imagen").value;
+    if (codigo == "" || nombre == "" || detalle == "" || precio == "" || stock == "" || id_categoria == "" || fecha_vencimiento == "") {
         Swal.fire({
             title: "Error campos vacios!",
             icon: "Error",
@@ -123,4 +123,61 @@ async function cargar_proveedores() {
     });
     //console.log(contenido);
     document.getElementById("id_proveedor").innerHTML = contenido;
+}
+async function edit_product() {
+    try {
+        let id_producto = document.getElementById('id_producto').value;
+        const datos = new FormData();
+        datos.append('id_producto', id_producto);
+
+        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=ver', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            body: datos
+        });
+        json = await respuesta.json();
+        if (!json.status) {
+            alert(json.msg);
+            return;
+        }
+        document.getElementById('codigo').value = json.data.codigo;
+        document.getElementById('nombre').value = json.data.nombre;
+        document.getElementById('detalle').value = json.data.detalle;
+        document.getElementById('precio').value = json.data.precio;
+        document.getElementById('stock').value = json.data.stock;
+        document.getElementById('id_categoria').value = json.data.id_categoria;
+        document.getElementById('id_proveedor').value = json.data.id_proveedor;
+        document.getElementById('fecha_vencimiento').value = json.data.fecha_vencimiento;
+        document.getElementById('direccion').value = json.data.direccion;
+        document.getElementById('rol').value = json.data.rol;
+
+    } catch (error) {
+        console.log('oops, ocurrió un error ' + error);
+    }
+}
+if (document.querySelector('#frm_edit_product')) {
+    // evita que se envie el formulario
+    let frm_user = document.querySelector('#frm_edit_product');
+    frm_user.onsubmit = function (e) {
+        e.preventDefault();
+        validar_form("actualizar");
+    }
+}
+async function actualizarProducto() {
+    const datos = new FormData(frm_edit_product);
+    let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=actualizar', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        body: datos
+    });
+    json = await respuesta.json();
+    if (!json.status) {
+        alert("Oooooops, ocurrio un error al actualizar, intentelo nuevamente");
+        console.log(json.msg);
+        return;
+    }else{
+        alert(json.msg);
+    }
 }

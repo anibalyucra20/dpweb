@@ -1,11 +1,11 @@
 <!-- INICIO DE CUERPO DE PÁGINA -->
 <div class="container-fluid">
     <div class="card">
-        <h5 class="card-header">Registro de Producto</h5>
-        <form id="frm_product" action="" method="" enctype="multipart/form-data">
+        <h5 class="card-header">Editar datos de Producto</h5>
+        <form id="frm_edit_product" action="" method="" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="mb-3 row">
-                    
+                    <input type="hidden" id="id_producto" name="id_producto" value="<?= $ruta[1]; ?>">
                     <label for="codigo" class="col-sm-4 col-form-label">codigo :</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="codigo" name="codigo" required>
@@ -58,19 +58,21 @@
                 <div class="mb-3 row">
                     <label for="imagen" class="col-sm-4 col-form-label">Imagen :</label>
                     <div class="col-sm-8">
-                        <input type="file" class="form-control" id="imagen" name="imagen" accept=".jpg, .jpeg, .png" required>
+                        <input type="file" class="form-control" id="imagen" name="imagen" accept=".jpg, .jpeg, .png">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Registrar</button>
-                <button type="reset" class="btn btn-info">Limpiar</button>
-                <a href="<?= BASE_URL ?>category" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Actualizar</button>
+                <a href="<?= BASE_URL ?>products" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
     </div>
 </div>
 <!-- FIN DE CUERPO DE PÁGINA -->
+<script src="<?php echo BASE_URL; ?>view/function/product.js"></script>
 <script>
     cargar_categorias();
     cargar_proveedores();
 </script>
-<script src="<?php echo BASE_URL; ?>view/function/product.js"></script>
+<script>
+    edit_product();
+</script>

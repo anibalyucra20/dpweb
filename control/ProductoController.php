@@ -68,7 +68,7 @@ if ($tipo === "registrar") {
         echo json_encode(['status' => false, 'msg' => 'No se pudo guardar la imagen']);
         exit;
     }
-    $id = $objProducto->registrar($codigo,$nombre,$detalle,$precio,$stock,$id_categoria,$fecha_vencimiento,$rutaRelativa, $id_proveedor);
+    $id = $objProducto->registrar($codigo, $nombre, $detalle, $precio, $stock, $id_categoria, $fecha_vencimiento, $rutaRelativa, $id_proveedor);
     if ($id > 0) {
         echo json_encode(['status' => true, 'msg' => 'Registrado correctamente', 'id' => $id, 'img' => $rutaRelativa]);
     } else {
@@ -76,4 +76,60 @@ if ($tipo === "registrar") {
         echo json_encode(['status' => false, 'msg' => 'Error, falló en registro']);
     }
     exit;
+}
+if ($tipo == "ver") {
+    //print_r($_POST);
+    $respuesta = array('status' => false, 'msg' => '');
+    $id_producto = $_POST['id_producto'];
+    $producto = $objProducto->ver($id_producto);
+    if ($producto) {
+        $respuesta['status'] = true;
+        $respuesta['data'] = $producto;
+    } else {
+        $respuesta['msg'] = 'Error, producto no existe';
+    }
+    echo json_encode($respuesta);
+}
+if ($tipo == "actualizar") {
+
+    //print_r($_POST);
+    $id_producto       = $_POST['id_producto'] ?? '';
+    $codigo            = $_POST['codigo'] ?? '';
+    $nombre            = $_POST['nombre'] ?? '';
+    $detalle           = $_POST['detalle'] ?? '';
+    $precio            = $_POST['precio'] ?? '';
+    $stock             = $_POST['stock'] ?? '';
+    $id_categoria      = $_POST['id_categoria'] ?? '';
+    $fecha_vencimiento = $_POST['fecha_vencimiento'] ?? '';
+    $id_proveedor = $_POST['id_proveedor'] ?? '';
+    if ($codigo === "" || $nombre === "" || $detalle === "" || $precio === "" || $stock === "" || $id_categoria === "" || $fecha_vencimiento === "" || $id_proveedor === "") {
+        echo json_encode(['status' => false, 'msg' => 'Error, campos vacíos']);
+        exit;
+    } else {
+        $producto = $objProducto->ver($id_producto);
+        if (!$producto) {
+            //devolver mensaje
+            $arrResponse = array('status' => false, 'msg' => 'Error, producto no existe en BD');
+            echo json_encode($arrResponse);
+            // cerrar funcion
+            exit;
+        } else {
+            if (!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK) {
+                //echo "no se envio la imagen";
+                $imagen = $producto->imagen;
+            } else {
+                //echo "si se envio la imagen";
+                
+            }
+            // actualizar
+            $actualizar = $objProducto->actualizar($id_producto, $codigo, $nombre, $detalle, $precio, $stock, $id_categoria, $fecha_vencimiento, $id_proveedor, $imagen);
+            if ($actualizar) {
+                $arrResponse = array('status' => true, 'msg' => "Actualizado correctamente");
+            } else {
+                $arrResponse = array('status' => false, 'msg' => $actualizar);
+            }
+            echo json_encode($arrResponse);
+            exit;
+        }
+    }
 }
