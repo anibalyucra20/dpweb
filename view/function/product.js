@@ -181,3 +181,41 @@ async function actualizarProducto() {
         alert(json.msg);
     }
 }
+
+
+
+async function listar_productos_venta() {
+    try {
+        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=ver_productos', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache'
+        });
+        json = await respuesta.json();
+        contenidot = document.getElementById('productos_venta');
+        if (json.status) {
+            let cont = 1;
+            json.data.forEach(producto => {
+                let producto_list = ``;
+                producto_list += `<div class="card m-2 col-12">
+                                <img src="${base_url+producto.imagen}" alt="" width="100%" height="150px">
+                                <p class="card-text">${producto.nombre}</p>
+                                <p>Precio: ${producto.precio}</p>
+                                <p>Stock: ${producto.stock}</p>
+                                <button onclick="agregar_producto_venta(${producto.id})" class="btn btn-primary">Agregar</button>
+                            </div>`;
+
+                let nueva_fila = document.createElement("div");
+                nueva_fila.className = "div col-md-3 col-sm-6 col-xs-12";
+                nueva_fila.innerHTML = producto_list;
+                cont++;
+                contenidot.appendChild(nueva_fila);
+            });
+        }
+    } catch (e) {
+        console.log('error en mostrar producto ' + e);
+    }
+}
+if (document.getElementById('productos_venta')) {
+    listar_productos_venta();
+}
