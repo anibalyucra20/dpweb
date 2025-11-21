@@ -8,7 +8,7 @@ class ProductoModel
         $this->conexion = new Conexion();
         $this->conexion = $this->conexion->connect();
     }
-    
+
     public function verProductos()
     {
         $arr_categorias = array();
@@ -57,15 +57,25 @@ class ProductoModel
         return $sql->fetch_object();
     }
 
-    public function actualizar($id_cat, $nombre, $detalle) {
+    public function actualizar($id_cat, $nombre, $detalle)
+    {
         $consulta = "UPDATE producto SET nombre='$nombre', detalle='$detalle' WHERE id='$id_cat'";
         $sql = $this->conexion->query($consulta);
         return $sql;
     }
-     public function eliminar($id){
+    public function eliminar($id)
+    {
         $consulta = "DELETE FROM producto WHERE id='$id'";
         $sql = $this->conexion->query($consulta);
         return $sql;
     }
-    
+    public function buscarProductoByNombreOrCodigo($dato){
+        $arr_productos = array();
+        $consulta = "SELECT * FROM producto WHERE codigo LIKE '$dato%' OR nombre LIKE '%$dato%' OR detalle LIKE '%$dato%'";
+        $sql = $this->conexion->query($consulta);
+        while ($objeto = $sql->fetch_object()) {
+            array_push($arr_productos, $objeto);
+        }
+        return $arr_productos;
+    }
 }

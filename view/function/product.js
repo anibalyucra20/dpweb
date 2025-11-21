@@ -21,6 +21,7 @@ async function view_products() {
                             <td>${producto.stock}</td>
                             <td>${producto.categoria}</td>
                             <td>${producto.fecha_vencimiento}</td>
+                            <td><svg id="barcode${producto.id}"></svg></td>
                             <td>
                                 <a href="`+ base_url + `edit-product/` + producto.id + `">Editar</a>
                                 <button class="btn btn-danger" onclick="fn_eliminar(` + producto.id + `);">Eliminar</button>
@@ -28,6 +29,13 @@ async function view_products() {
                 `;
                 cont++;
                 contenidot.appendChild(nueva_fila);
+
+            });
+            json.data.forEach(producto => {
+                JsBarcode("#barcode" + producto.id, "" + producto.codigo, {
+                    width: 2,
+                    height: 40
+                });
             });
         }
     } catch (e) {
@@ -177,7 +185,7 @@ async function actualizarProducto() {
         alert("Oooooops, ocurrio un error al actualizar, intentelo nuevamente");
         console.log(json.msg);
         return;
-    }else{
+    } else {
         alert(json.msg);
     }
 }
@@ -186,19 +194,24 @@ async function actualizarProducto() {
 
 async function listar_productos_venta() {
     try {
-        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=ver_productos', {
+        let dato = document.getElementById('busqueda_venta').value;
+        const datos = new FormData();
+        datos.append('dato', dato);
+        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=buscar_producto_venta', {
             method: 'POST',
             mode: 'cors',
-            cache: 'no-cache'
+            cache: 'no-cache',
+            body: datos
         });
         json = await respuesta.json();
         contenidot = document.getElementById('productos_venta');
         if (json.status) {
             let cont = 1;
+            contenidot.innerHTML = ``;
             json.data.forEach(producto => {
                 let producto_list = ``;
                 producto_list += `<div class="card m-2 col-12">
-                                <img src="${base_url+producto.imagen}" alt="" width="100%" height="150px">
+                                <img src="${base_url + producto.imagen}" alt="" width="100%" height="150px">
                                 <p class="card-text">${producto.nombre}</p>
                                 <p>Precio: ${producto.precio}</p>
                                 <p>Stock: ${producto.stock}</p>

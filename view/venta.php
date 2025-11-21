@@ -2,8 +2,11 @@
     <h2>Ventas</h2>
     <div class="col-9">
         <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Busqueda de Productos</h5>
+            <div class="card-body row">
+                <h5 class="card-title col-md-4">Busqueda de Productos</h5>
+                <div class="col-md-6">
+                    <input type="text" class="form-control col-md-12" placeholder="buscar producto por codigo o nombre" id="busqueda_venta" onkeyup="listar_productos_venta();">
+                </div>
                 <div class="row container-fluid" id="productos_venta">
                     <!--<div class="card m-2 col-3">
                         <div class="card-body">
@@ -20,16 +23,16 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Lista de Compra</h5>
-                <div class="row" style="min-height: 500px;">
+                <div class="row" style="min-height: auto;">
                     <div class="col-12">
-                        <table class="table">
+                        <table class="table-responsive table table-hover">
                             <thead>
                                 <tr>
                                     <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Total</th>
-                                    <th>Acciones</th>
+                                    <th>Cant.</th>
+                                    <th>P. Unit.</th>
+                                    <th>SubTotal</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="lista_compra">
@@ -57,3 +60,4 @@
     </div>
 </div>
 <script src="<?= BASE_URL ?>view/function/product.js"></script>
+<script src="<?= BASE_URL ?>view/function/venta.js"></script>
