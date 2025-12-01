@@ -6,6 +6,9 @@
                 <h5 class="card-title col-md-4">Busqueda de Productos</h5>
                 <div class="col-md-6">
                     <input type="text" class="form-control col-md-12" placeholder="buscar producto por codigo o nombre" id="busqueda_venta" onkeyup="listar_productos_venta();">
+                    <input type="hidden" id="id_producto_venta">
+                    <input type="hidden" id="producto_precio_venta">
+                    <input type="hidden" id="producto_cantidad_venta" value="1">
                 </div>
                 <div class="row container-fluid" id="productos_venta">
                     <!--<div class="card m-2 col-3">
@@ -61,3 +64,11 @@
 </div>
 <script src="<?= BASE_URL ?>view/function/product.js"></script>
 <script src="<?= BASE_URL ?>view/function/venta.js"></script>
+<script>
+    let input = document.getElementById("busqueda_venta");
+    input.addEventListener('keydown', (event)=>{
+        if (event.key == 'Enter') {
+            agregar_producto_temporal();
+        }
+    })
+</script>
