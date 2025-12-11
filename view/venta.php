@@ -1,6 +1,6 @@
 <div class="container-fluid mt-4 row">
     <h2>Ventas</h2>
-    <div class="col-9">
+    <div class="col-8">
         <div class="card">
             <div class="card-body row">
                 <h5 class="card-title col-md-4">Busqueda de Productos</h5>
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Lista de Compra</h5>
@@ -39,22 +39,15 @@
                                 </tr>
                             </thead>
                             <tbody id="lista_compra">
-                                <tr>
-                                    <td>Producto 1</td>
-                                    <td>2</td>
-                                    <td>$10.00</td>
-                                    <td>$20.00</td>
-                                    <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 text-end">
-                        <h4>Subtotal : <label id="">$20.00</label></h4>
-                        <h4>Igv : <label id="">$20.00</label></h4>
-                        <h4>Total : <label id="">$20.00</label></h4>
+                        <h4>Subtotal : <label id="subtotal_general"></label></h4>
+                        <h4>Igv : <label id="igv_general"></label></h4>
+                        <h4>Total : <label id="total"></label></h4>
                         <button class="btn btn-success">Realizar Venta</button>
                     </div>
                 </div>
@@ -70,5 +63,7 @@
         if (event.key == 'Enter') {
             agregar_producto_temporal();
         }
-    })
+    });
+    listar_temporales();
+    act_subt_general();
 </script>
