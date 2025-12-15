@@ -87,13 +87,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Registrar Venta</button>
+                <button type="button" class="btn btn-primary" onclick="registrarVenta();">Registrar Venta</button>
             </div>
         </div>
     </div>
 </div>
 <script src="<?= BASE_URL ?>view/function/product.js"></script>
 <script src="<?= BASE_URL ?>view/function/venta.js"></script>
+
 <script>
     let input = document.getElementById("busqueda_venta");
     input.addEventListener('keydown', (event) => {

@@ -16,10 +16,23 @@ productos_venta[id] = producto;
 productos_venta[id2] = producto2;
 console.log(productos_venta);
 
-async function agregar_producto_temporal() {
-    let id = document.getElementById('id_producto_venta').value;
-    let precio = document.getElementById('producto_precio_venta').value;
-    let cantidad = document.getElementById('producto_cantidad_venta').value;
+async function agregar_producto_temporal(id_product = 0, price = 0, cant = 1) {
+    if (id_product == 0) {
+        id = document.getElementById('id_producto_venta').value;
+    } else {
+        id = id_product;
+    }
+    if (price == 0) {
+        precio = document.getElementById('producto_precio_venta').value;
+    } else {
+        precio = price;
+    }
+    if (cant == 0) {
+        cantidad = document.getElementById('producto_cantidad_venta').value;
+    } else {
+        cantidad = cant;
+    }
+    
     const datos = new FormData();
     datos.append('id_producto', id);
     datos.append('precio', precio);
@@ -39,6 +52,7 @@ async function agregar_producto_temporal() {
                 alert("el producto fue actualizado");
             }
         }
+        listar_temporales();
 
     } catch (error) {
         console.log("error en agregar producto temporal " + error);
@@ -144,6 +158,9 @@ async function buscar_cliente_venta() {
 async function registrarVenta() {
     let id_cliente = document.getElementById('id_cliente_venta').value;
     let fecha_venta = document.getElementById('fecha_venta').value;
+    if (id_cliente == '' || fecha_venta == '') {
+        return alert("debe completar todos los campos");
+    }
     try {
         const datos = new FormData();
         datos.append('id_cliente', id_cliente);
